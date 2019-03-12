@@ -43,7 +43,7 @@ export const object = <T extends Validator>(validator: T) => (
 /** Returns true if and only if x is an array where each element matches the given validator. */
 export const array = <T extends Validator>(validator: T) => (
   x: unknown
-): x is Array<TypeOf<T[keyof T]>> => Array.isArray(x) && x.every(validator);
+): x is Array<TypeOf<T>> => Array.isArray(x) && x.every(validator);
 
 // ------------------------------//
 // - - - SCHEMA VALIDATORS - - - //
