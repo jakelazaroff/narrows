@@ -14,6 +14,6 @@
     "typescript": "^3.3.3333"
   },
   "scripts": {
-    "prepare": "yarn tsc"
+    "prepare": "yarn tsc --target es5 --outDir dist/cjs && yarn tsc --target es6 --outDir dist/esm"
   }
 }
