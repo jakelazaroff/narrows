@@ -1,12 +1,13 @@
 {
   "name": "narrows",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jakelazaroff/narrows.git"
   },
-  "main": "index.js",
-  "types": "index.d.ts",
+  "main": "dist/index.js",
+  "module": "dist/es/index.js",
+  "types": "dist/index.d.ts",
   "sideEffects": false,
   "author": "Jake Lazaroff <yo@jake.nyc>",
   "license": "MIT",
@@ -14,6 +15,6 @@
     "typescript": "^3.3.3333"
   },
   "scripts": {
-    "prepare": "yarn tsc --target es5 --outDir dist/cjs && yarn tsc --target es6 --outDir dist/esm"
+    "prepare": "yarn tsc --target es5 --outDir dist && yarn tsc --target es6 --outDir dist/es"
   }
 }
