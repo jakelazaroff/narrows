@@ -192,6 +192,25 @@ if (validate(foo)) {
 }
 ```
 
+#### instance
+
+Returns true if and only if a variable matches the given constructor.
+
+```typescript
+import { instance } from "narrows";
+
+const validate = instance(Date);
+
+validate(new Date()); // true
+validate({ a: 1 }); // false
+
+const foo: unknown = new Date();
+
+if (validate(foo)) {
+  foo; // type narrowed to Date
+}
+```
+
 ### Schema Validators
 
 Validate that all members of a type match corresponding validators in the given schema.

@@ -7,6 +7,8 @@ type UnionToIntersection<U> = (U extends any
   ? I
   : never;
 
+type InstanceOf<T> = T extends { new (...args: any[]): infer U } ? U : never;
+
 const isObject = (x: unknown): x is { [key: string]: unknown } =>
   typeof x === "object" && x !== null;
 
@@ -44,6 +46,11 @@ export const object = <T extends Validator>(validator: T) => (
 export const array = <T extends Validator>(validator: T) => (
   x: unknown
 ): x is Array<TypeOf<T>> => Array.isArray(x) && x.every(validator);
+
+/** Returns true if and only if x is an instance of the given type. */
+export const instance = <T extends Function>(base: T) => (
+  x: unknown
+): x is InstanceOf<T> => x instanceof base;
 
 // ------------------------------//
 // - - - SCHEMA VALIDATORS - - - //
