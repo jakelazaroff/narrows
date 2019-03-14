@@ -66,7 +66,7 @@ export const record = <T extends { [key: string]: Validator }>(schema: T) => (
 export const tuple = <T extends Validator[]>(...schema: T) => (
   x: unknown
 ): x is { [K in keyof T]: TypeOf<T[K]> } =>
-  schema.every((validator, i) => Array.isArray(x) && validator(x[i]));
+  Array.isArray(x) && schema.every((validator, i) => validator(x[i]));
 
 // ----------------------- //
 // - - - COMBINATORS - - - //
