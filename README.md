@@ -2,6 +2,8 @@
 
 Super lean and simple object validation with TypeScript support.
 
+![v1.0.4](https://badgen.net/npm/v/narrows?icon) ![minzipped size: 405 B](https://badgen.net/bundlephobia/minzip/narrows)
+
 **narrows** is…
 
 - composable: use any validator inside another
