@@ -1,12 +1,17 @@
 # narrows
 
-Super lean and simple object validation with TypeScript support. **narrows** is…
+Super lean and simple object validation with TypeScript support.
+
+**narrows** is…
 
 - composable: use any validator inside another
-- extendable: validators are just functions — easily write your own
+- extendable: validators are simple functions — easily write your own
+- safe: in TypeScript, validators turn your variables into static types
 - tiny: no dependencies, fewer than 50 lines of code and less than 500b gzipped
 
 ## Examples
+
+Easily validate complex types by using simple validators together:
 
 ```javascript
 import { number, record, string } from "narrows";
@@ -36,10 +41,7 @@ const foo: unknown = {
 };
 
 if (validate(foo)) {
-  // true
-  // { a: string; b: number; }
-} else {
-  // unknown
+  foo; // type narrowed to { a: string; b: number; }
 }
 ```
 
@@ -57,7 +59,19 @@ validate(5); // true
 validate(-1); // false
 ```
 
-In TypeScript, your validators should be [user-defined type guards](https://www.typescriptlang.org/docs/handbook/advanced-types.html#user-defined-type-guards): functions in the form of `(x: unknown) => x is T`. This lets TypeScript extract static type information from your validators.
+It's also common to write validator creators: functions that return validators. This lets you apply custom behavior when you use them.
+
+```javascript
+import { all, number } from "narrows";
+
+const greaterThan = x => y => x > y;
+const validate = all(number, greaterThan(10));
+
+validate(11); // true
+validate(5); // false
+```
+
+In TypeScript, your validators should be [user-defined type guards](https://www.typescriptlang.org/docs/handbook/advanced-types.html#user-defined-type-guards): functions in the form of `(x: unknown) => x is T`. This lets TypeScript extract static type information.
 
 ```typescript
 import { record, number } from "narrows";
@@ -77,10 +91,7 @@ const foo: unknown = {
 };
 
 if (validate(foo)) {
-  // true
-  // { type: "increment" | "decrement"; amount: number; }
-} else {
-  // unknown
+  foo; // type narrowed to { type: "increment" | "decrement"; amount: number; }
 }
 ```
 
@@ -137,7 +148,7 @@ empty("string"); // false
 
 ### Complex Validators
 
-Validate that all members of a variable match the given validator.
+Validate that a variable conforms to a certain shape, or is an instance of a constructor.
 
 #### object
 
@@ -151,8 +162,14 @@ const validate = object(number);
 validate({ a: 1, b: 2 /* ... */ }); // true
 validate({ a: "a", b: "b" /* ... */ }); // false
 
-if (validate({ a: 1, b: 2 /* ... */ })) {
-  // { [key: string]: number }
+const foo: unknown = {
+  a: 1,
+  b: 2
+  // ...
+};
+
+if (validate(foo)) {
+  foo; // type narrowed to { [key: string]: number }
 }
 ```
 
@@ -168,8 +185,10 @@ const validate = array(number);
 validate([1, 2 /* ... */]); // true
 validate(["a", "b" /* ... */]); // false
 
-if (validate([1, 2 /* ... */])) {
-  // number[]
+const foo: unknown = [1, 2 /* ... */];
+
+if (validate(foo)) {
+  foo; // type narrowed to number[]
 }
 ```
 
@@ -198,10 +217,7 @@ const foo: unknown = {
 };
 
 if (validate(foo)) {
-  // true
-  // { a: string; b: number; }
-} else {
-  // unknown
+  foo; // type narrowed to { a: string; b: number; }
 }
 ```
 
@@ -219,10 +235,7 @@ const validate = tuple([string, number]);
 const foo: unknown = ["abc", 123, true];
 
 if (validate(foo)) {
-  // true
-  // [string, number]
-} else {
-  // unknown
+  foo; // type narrowed to[string, number]
 }
 ```
 
@@ -245,8 +258,10 @@ validate(0); // true
 validate("one"); // true
 validate(false); // false
 
-if (validate(0)) {
-  // number | string
+const foo: unknown = 0;
+
+if (validate(foo)) {
+  foo; // type narrowed to number | string
 }
 ```
 
@@ -265,8 +280,13 @@ validate({ a: 1, b: "2" }); // true
 validate({ a: 1 }); // false
 validate({ b: "2" }); // false
 
-if (validate({ a: 1, b: "2" })) {
-  // { a: number; b: string; }
+const foo: unknown = {
+  a: 1,
+  b: "2"
+};
+
+if (validate(foo)) {
+  foo; // type narrowed to { a: number; b: string; }
 }
 ```
 
@@ -286,8 +306,9 @@ validate(null); // true
 validate(undefined); // true
 validate("string"); // false
 
-if (validate(0)) {
-  // number | null | undefined
+const foo: unknown = undefined;
+if (validate(foo)) {
+  foo; // type narrowed to number | null | undefined
 }
 ```
 
