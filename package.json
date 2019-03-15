@@ -20,6 +20,7 @@
   "scripts": {
     "clean": "rm -rf dist",
     "test": "jest --coverage",
-    "prepare": "yarn tsc --target es5 --outDir dist && yarn tsc --target es6 --outDir dist/es"
+    "build": "yarn tsc --target es5 --outDir dist && yarn tsc --target es6 --outDir dist/es",
+    "prepublishOnly": "yarn test && yarn build"
   }
 }
