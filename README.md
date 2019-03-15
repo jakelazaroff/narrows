@@ -249,7 +249,7 @@ Given an array of validators, returns true if and only if each validator in that
 If extra elements are present, this function still returns true — but the extra elements won't be reflected in the narrowed type.
 
 ```typescript
-import { number, tuple, string } from "narrows";
+import { number, string, tuple } from "narrows";
 
 const validate = tuple([string, number]);
 
@@ -288,7 +288,7 @@ if (validate(foo)) {
 
 #### all
 
-Returns true if the argument matches any of the given validators.
+Returns true if the argument matches all of the given validators.
 
 Narrows to an intersection of the validator types.
 
