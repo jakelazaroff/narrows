@@ -32,6 +32,11 @@ export const number = (x: unknown): x is number => typeof x === "number";
 export const empty = (x: unknown): x is null | undefined =>
   x === null || x === undefined;
 
+/** Returns true if and only if x is strictly equal to y. */
+export const literal = <T extends boolean | number | string | symbol>(y: T) => (
+  x: unknown
+): x is T => x === y;
+
 // ------------------------------ //
 // - - - COMPLEX VALIDATORS - - - //
 // ------------------------------ //

@@ -101,7 +101,7 @@ if (validate(foo)) {
 
 ### Primitive Validators
 
-Validate that a variable is a `boolean`, `number`, `string` or `null`/`undefined`.
+Validate that a variable is a `boolean`, `number`, `string`, `null`/`undefined` or a literal value.
 
 #### boolean
 
@@ -144,8 +144,36 @@ Returns true if and only if the argument is null or undefined.
 import { empty } from "narrows";
 
 empty(null); // true
-empty(undefined); //true
+empty(undefined); // true
 empty("string"); // false
+```
+
+#### literal
+
+Returns true if and only if the argument is [strictly equal](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Comparison_Operators) to the given value. Two values are strictly equal if they are primitives with the same value, or references to the same object.
+
+```javascript
+import { literal } from "narrows";
+
+const validate = literal(5);
+
+validate(5); // true
+validate(6); // false
+```
+
+In TypeScript, this will narrow to the widened type instead of the constant (e.g. `number` instead of `5`). To fix this, you can [assert the type manually](https://www.typescriptlang.org/docs/handbook/basic-types.html#type-assertions):
+
+```typescript
+import { literal } from "narrows";
+
+let validate = literal(5 as 5); // TypeScript 3.3 and below
+validate = literal(5 as const); // TypeScript 3.4 and above
+
+const foo: unknown = 5;
+
+if (validate(foo)) {
+  foo; // type narrowed to 5
+}
 ```
 
 ### Complex Validators

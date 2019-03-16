@@ -5,13 +5,14 @@ import {
   boolean,
   empty,
   instance,
+  literal,
   object,
   optional,
   number,
   record,
   string,
   tuple
-} from ".";
+} from "./index";
 
 describe("boolean", () => {
   it("should return true for booleans", () => {
@@ -73,6 +74,24 @@ describe("empty", () => {
     expect(empty(1)).toBe(false);
     expect(empty(Symbol())).toBe(false);
     expect(empty({})).toBe(false);
+  });
+});
+
+describe("literal", () => {
+  it("should return true for the same literal", () => {
+    const validate = literal(1);
+
+    expect(validate(1)).toBe(true);
+  });
+
+  it("should return false for other values", () => {
+    const validate = literal(1);
+
+    expect(validate(2)).toBe(false);
+    expect(validate("test")).toBe(false);
+    expect(validate(true)).toBe(false);
+    expect(validate(Symbol())).toBe(false);
+    expect(validate({})).toBe(false);
   });
 });
 
