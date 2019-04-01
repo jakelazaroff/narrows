@@ -15,5 +15,5 @@
     "noFallthroughCasesInSwitch": true,
     "esModuleInterop": true
   },
-  "exclude": ["*.test.ts"]
+  "exclude": ["*.test.ts", "dist"]
 }
