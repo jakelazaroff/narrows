@@ -6,6 +6,7 @@ import {
   empty,
   instance,
   literal,
+  nil,
   object,
   optional,
   number,
@@ -60,20 +61,32 @@ describe("string", () => {
 });
 
 describe("empty", () => {
-  it("should return true for null", () => {
-    expect(empty(null)).toBe(true);
-  });
-
   it("should return true for undefined", () => {
     expect(empty(undefined)).toBe(true);
   });
 
   it("should return false for other types", () => {
+    expect(empty(null)).toBe(false);
     expect(empty("test")).toBe(false);
     expect(empty(true)).toBe(false);
     expect(empty(1)).toBe(false);
     expect(empty(Symbol())).toBe(false);
     expect(empty({})).toBe(false);
+  });
+});
+
+describe("nil", () => {
+  it("should return true for null", () => {
+    expect(nil(null)).toBe(true);
+  });
+
+  it("should return false for other types", () => {
+    expect(nil(undefined)).toBe(false);
+    expect(nil("test")).toBe(false);
+    expect(nil(true)).toBe(false);
+    expect(nil(1)).toBe(false);
+    expect(nil(Symbol())).toBe(false);
+    expect(nil({})).toBe(false);
   });
 });
 
@@ -207,12 +220,6 @@ describe("optional", () => {
     const validate = optional(number);
 
     expect(validate(1)).toBe(true);
-  });
-
-  it("should return true if the value is null", () => {
-    const validate = optional(number);
-
-    expect(validate(null)).toBe(true);
   });
 
   it("should return true if the value is undefined", () => {

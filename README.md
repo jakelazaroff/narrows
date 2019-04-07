@@ -138,14 +138,24 @@ string(true); // false
 
 #### empty
 
-Returns true if and only if the argument is null or undefined.
+Returns true if and only if the argument is undefined.
 
 ```typescript
 import { empty } from "narrows";
 
-empty(null); // true
 empty(undefined); // true
 empty("string"); // false
+```
+
+#### nil
+
+Returns true if and only if the argument is null.
+
+```typescript
+import { nil } from "narrows";
+
+nil(null); // true
+nil("string"); // false
 ```
 
 #### literal
@@ -341,9 +351,9 @@ if (validate(foo)) {
 
 #### optional
 
-Returns true if the argument matches the given validator, null or undefined.
+Returns true if the argument matches the given validator or is undefined.
 
-Narrows to a union of the validator type, `null` and `undefined`.
+Narrows to a union of the validator type and `undefined`.
 
 ```typescript
 import { optional, number } from "narrows";
@@ -351,13 +361,12 @@ import { optional, number } from "narrows";
 const validate = optional(number);
 
 validate(0); // true
-validate(null); // true
 validate(undefined); // true
 validate("string"); // false
 
 const foo: unknown = undefined;
 if (validate(foo)) {
-  foo; // type narrowed to number | null | undefined
+  foo; // type narrowed to number | undefined
 }
 ```
 

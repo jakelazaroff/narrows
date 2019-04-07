@@ -28,9 +28,11 @@ export const string = (x: unknown): x is string => typeof x === "string";
 /** Returns true if and only if x is a number. */
 export const number = (x: unknown): x is number => typeof x === "number";
 
-/** Returns true if and only if x is null or undefined. */
-export const empty = (x: unknown): x is null | undefined =>
-  x === null || x === undefined;
+/** Returns true if and only if x is undefined. */
+export const empty = (x: unknown): x is undefined => x === undefined;
+
+/** Returns true if and only if x is null. */
+export const nil = (x: unknown): x is null => x === null;
 
 /** Returns true if and only if x is strictly equal to y. */
 export const literal = <T extends boolean | number | string | symbol>(y: T) => (
@@ -88,5 +90,5 @@ export const all = <T extends Validator[]>(...validators: T) => (
 ): x is UnionToIntersection<TypeOf<T[keyof T]>> =>
   validators.every(validator => validator(x));
 
-/** Returns true if and only if x matches the given validator, is null or is undefined. */
+/** Returns true if and only if x matches the given validator or is undefined. */
 export const optional = <T>(validator: Validator<T>) => any(empty, validator);
