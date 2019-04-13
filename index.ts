@@ -46,7 +46,7 @@ export const literal = <T extends boolean | number | string | symbol>(y: T) => (
 /** Returns true if and only if x is an object where each value matches the given validator. */
 export const object = <T extends Validator>(validator: T) => (
   x: unknown
-): x is { [K in keyof T]: TypeOf<T[K]> } =>
+): x is { [key: string]: TypeOf<T> } =>
   isObject(x) && Object.values<unknown>(x).every(validator);
 
 /** Returns true if and only if x is an array where each element matches the given validator. */
