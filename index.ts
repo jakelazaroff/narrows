@@ -1,5 +1,3 @@
-type Validator<T = unknown> = (x: unknown) => x is T;
-
 // https://stackoverflow.com/a/50375286/1486679
 type UnionToIntersection<U> = (U extends any
   ? (k: U) => void
@@ -12,8 +10,11 @@ type InstanceOf<T> = T extends { new (...args: any[]): infer U } ? U : never;
 const isObject = (x: unknown): x is { [key: string]: unknown } =>
   typeof x === "object" && x !== null;
 
+/** Validator for type T. */
+export type Validator<T = unknown> = (x: unknown) => x is T;
+
 /** Type for which a validator matches. */
-export type TypeOf<T> = T extends (x: unknown) => x is infer U ? U : never;
+export type TypeOf<T> = T extends Validator<infer U> ? U : never;
 
 // -------------------------------- //
 // - - - PRIMITIVE VALIDATORS - - - //
