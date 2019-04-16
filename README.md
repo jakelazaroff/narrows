@@ -2,7 +2,7 @@
 
 Super lean and simple object validation with TypeScript support.
 
-[![NPM version](https://badgen.net/npm/v/narrows?color=red&icon)](https://www.npmjs.com/package/narrows) [![Build status](https://badgen.net/circleci/github/jakelazaroff/narrows)](https://circleci.com/gh/jakelazaroff/narrows) [![Bundle size](https://badgen.net/bundlephobia/minzip/narrows)](https://bundlephobia.com/result?p=narrows@latest)
+[![NPM version](https://badgen.net/npm/dm/narrows?color=red&icon=npm)](https://www.npmjs.com/package/narrows) [![Build status](https://badgen.net/circleci/github/jakelazaroff/narrows?icon=circleci)](https://circleci.com/gh/jakelazaroff/narrows) [![Bundle size](https://badgen.net/bundlephobia/minzip/narrows)](https://bundlephobia.com/result?p=narrows@latest)
 
 **narrows** is…
 
