@@ -1,6 +1,6 @@
 {
   "name": "narrows",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "Super lean and simple object validation with TypeScript support.",
   "keywords": [
     "typescript",
