@@ -370,6 +370,27 @@ if (validate(foo)) {
 }
 ```
 
+#### nullable
+
+Returns true if the argument matches the given validator or is null.
+
+Narrows to a union of the validator type and `null`.
+
+```typescript
+import { nullable, number } from "narrows";
+
+const validate = nullable(number);
+
+validate(0); // true
+validate(null); // true
+validate("string"); // false
+
+const foo: unknown = null;
+if (validate(foo)) {
+  foo; // type narrowed to number | null
+}
+```
+
 ### TypeOf
 
 TypeScript type that extracts the validated type from a validator function.

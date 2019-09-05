@@ -93,3 +93,6 @@ export const all = <T extends Validator[]>(...validators: T) => (
 
 /** Returns true if and only if x matches the given validator or is undefined. */
 export const optional = <T>(validator: Validator<T>) => any(empty, validator);
+
+/** Returns true if and only if x matches the given validator or is null. */
+export const nullable = <T>(validator: Validator<T>) => any(nil, validator);

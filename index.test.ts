@@ -9,6 +9,7 @@ import {
   nil,
   object,
   optional,
+  nullable,
   number,
   record,
   string,
@@ -230,6 +231,26 @@ describe("optional", () => {
 
   it("should return false if the value doesn't match the given validator", () => {
     const validate = optional(number);
+
+    expect(validate("test")).toBe(false);
+  });
+});
+
+describe("nullable", () => {
+  it("should return true if the value matches the given validator", () => {
+    const validate = nullable(number);
+
+    expect(validate(1)).toBe(true);
+  });
+
+  it("should return true if the value is null", () => {
+    const validate = nullable(number);
+
+    expect(validate(null)).toBe(true);
+  });
+
+  it("should return false if the value doesn't match the given validator", () => {
+    const validate = nullable(number);
 
     expect(validate("test")).toBe(false);
   });
