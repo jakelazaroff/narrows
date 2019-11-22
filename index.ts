@@ -1,7 +1,7 @@
 // https://stackoverflow.com/a/50375286/1486679
 type UnionToIntersection<U> = (U extends any
-  ? (k: U) => void
-  : never) extends ((k: infer I) => void)
+? (k: U) => void
+: never) extends (k: infer I) => void
   ? I
   : never;
 
@@ -96,3 +96,10 @@ export const optional = <T>(validator: Validator<T>) => any(empty, validator);
 
 /** Returns true if and only if x matches the given validator or is null. */
 export const nullable = <T>(validator: Validator<T>) => any(nil, validator);
+
+/** Throws if and only if x does not match the given validator. */
+export const asserts = <T>(validator: Validator<T>) => (
+  x: unknown
+): asserts x is T => {
+  if (!validator(x)) throw new Error("Assertion failed.");
+};

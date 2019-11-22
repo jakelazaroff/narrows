@@ -391,6 +391,29 @@ if (validate(foo)) {
 }
 ```
 
+#### asserts
+
+Throws if the argument doesn ot match the given validator.
+
+Narrows to the validator type.
+
+```typescript
+import { asserts, number } from "narrows";
+
+const validate = asserts(number);
+
+try {
+  validate(0);
+  // no error is thrown
+} catch (e) {}
+
+try {
+  validate("string");
+} catch (e) {
+  // error is thrown
+}
+```
+
 ### TypeOf
 
 TypeScript type that extracts the validated type from a validator function.

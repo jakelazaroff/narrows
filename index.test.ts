@@ -2,6 +2,7 @@ import {
   all,
   any,
   array,
+  asserts,
   boolean,
   empty,
   instance,
@@ -282,5 +283,19 @@ describe("all", () => {
     const validate = all(record({ a: string }), record({ b: number }));
 
     expect(validate({ a: "one", b: "two" })).toBe(false);
+  });
+});
+
+describe("asserts", () => {
+  it("should not throw if the value matches the given validator", () => {
+    const validate = asserts(number);
+
+    expect(() => validate(2)).not.toThrow();
+  });
+
+  it("should throw if the value doesn't match the given validator", () => {
+    const validate = asserts(number);
+
+    expect(() => validate("string")).toThrow();
   });
 });
