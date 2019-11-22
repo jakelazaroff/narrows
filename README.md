@@ -7,9 +7,9 @@ Super lean and simple object validation with TypeScript support.
 **narrows** is…
 
 - composable: use any validator inside another
-- extendable: validators are simple functions — easily write your own
+- extensible: validators are simple functions — easily write your own
 - safe: in TypeScript, validators turn your variables into static types
-- tiny: no dependencies, fewer than 50 lines of code and less than 500b gzipped
+- tiny: no dependencies, fewer than 50 lines of code and barely 500b gzipped
 
 ## Examples
 
@@ -61,12 +61,12 @@ validate(5); // true
 validate(-1); // false
 ```
 
-It's also common to write validator creators: functions that return validators. This lets you apply custom behavior when you use them.
+It's also common to write **validator creators**: functions that return validators. This lets you apply custom behavior when you use them.
 
 ```javascript
 import { all, number } from "narrows";
 
-const greaterThan = x => y => x > y;
+const greaterThan = x => y => y > x;
 const validate = all(number, greaterThan(10));
 
 validate(11); // true
@@ -393,7 +393,7 @@ if (validate(foo)) {
 
 #### asserts
 
-Throws if the argument doesn ot match the given validator.
+Throws if the argument doesn't match the given validator.
 
 Narrows to the validator type.
 
